@@ -10,9 +10,7 @@ class StorePicker extends React.Component {
   //   super();
   //   this.goToStore = this.goToStore.bind(this);
   // }
-
   myInput = React.createRef();
-
   // goToStore(event) {
   goToStore = event => {
     // 1. Stop the form from submitting
@@ -20,13 +18,13 @@ class StorePicker extends React.Component {
     // Never manipulate the dom
     // 2. get the text from that input
     // console.log(this) => null because custom method is not a property of instance of StorePicker
-    console.log(this.myInput);
+    console.log(this.myInput.current.value);
+    const storeName = this.myInput.current.value;
+    //console.log(this);
     // 3. Change the page to /store/whatever-they-entered
-    console.log(this)
-  }
-
-  componentDidMount() {
-    console.log('Mounted!!')
+    // using push state to change route
+    // StorePicker has access to Router controller because the Router component is a parent
+    this.props.history.push(`/store/${storeName}`)
   }
 
   render() {
@@ -38,7 +36,8 @@ class StorePicker extends React.Component {
                ref={this.myInput}
                required
                placeholder='Store Name'
-               defaultValue={getFunName()}/>
+               defaultValue={getFunName()}
+        />
         <button type='submit'>Vist Store &rarr;</button>
       </form>
     )
