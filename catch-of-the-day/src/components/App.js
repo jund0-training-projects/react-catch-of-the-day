@@ -59,7 +59,9 @@ class App extends React.Component {
               ))}
           </ul>
         </div>
-        <Order />
+        {/*alternate method for passing the entire state as a prop*/}
+        {/*<Order { ...this.state } />*/}
+        <Order fishes={this.state.fishes} order={this.state.order} />
         <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes}/>
       </div>
     )
