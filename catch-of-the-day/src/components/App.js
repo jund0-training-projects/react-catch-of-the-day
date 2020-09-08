@@ -4,6 +4,9 @@ import Inventory from './Inventory';
 import Order from './Order';
 import Fish from './Fish';
 import sampleFishes from '../sample-fishes';
+// importing fire base
+import base from '../base';
+import fishes from "../sample-fishes";
 
 class App extends React.Component {
   // where we need to set initial state
@@ -13,6 +16,25 @@ class App extends React.Component {
     fishes: {},
     order: {}
   }
+  // lifecycle method
+  componentDidMount() {
+    // not the same as input refs, more as a ref to data within a database.
+    // reference App Comopnent's props from react router
+    const { params } = this.props.match;
+    // reference to the store name and fishes state
+    this.ref = base.syncState(`${params.storedId}/fishes`, {
+      context: this,
+      state: 'fishes'
+    });
+  }
+
+  //lifecycle method
+  componentWillUnmount() {
+    // why we store ref so we can remove it
+    // it will un mount the app component and clean up any memory leak issues.
+    base.removeBinding(this.ref);
+  }
+
   // need to create secondary method to add fish to state
   addFish = fish => {
     console.log("Adding a fish!");
