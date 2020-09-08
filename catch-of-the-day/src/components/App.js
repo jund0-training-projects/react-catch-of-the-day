@@ -6,7 +6,6 @@ import Fish from './Fish';
 import sampleFishes from '../sample-fishes';
 // importing fire base
 import base from '../base';
-import fishes from "../sample-fishes";
 
 class App extends React.Component {
   // where we need to set initial state
@@ -40,7 +39,7 @@ class App extends React.Component {
     console.log(this.state.order);
     // with localstorage api need value needs to be a string
     localStorage.setItem(this.props.match.params.storedId, JSON.stringify(this.state.order));
-    console.log('Component Did Update')
+    // console.log('Component Did Update')
   }
 
   // lifecycle method
@@ -64,6 +63,22 @@ class App extends React.Component {
       fishes: fishes
     });
   };
+
+  // editing existing fish
+  updateFish = (key, updatedFish) => {
+    console.log('app updateFish');
+    console.log(key);
+    console.log(updatedFish);
+    // 1. take a copy of the current state
+    const fishes = { ...this.state.fishes };
+    // 2. Update that state
+    fishes[key] = updatedFish;
+    console.log(fishes);
+    // 3. Set that to state
+    this.setState( {
+      fishes: fishes
+    });
+  }
 
   loadSampleFishes = () => {
     this.setState({fishes: sampleFishes});
@@ -99,8 +114,14 @@ class App extends React.Component {
         </div>
         {/*alternate method for passing the entire state as a prop*/}
         {/*<Order { ...this.state } />*/}
-        <Order fishes={this.state.fishes} order={this.state.order} />
-        <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes}/>
+        <Order fishes={this.state.fishes}
+               order={this.state.order}
+        />
+        <Inventory addFish={this.addFish}
+                   updateFish={this.updateFish}
+                   loadSampleFishes={this.loadSampleFishes}
+                   fishes={this.state.fishes}
+        />
       </div>
     )
   }
