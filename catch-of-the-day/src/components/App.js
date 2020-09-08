@@ -21,6 +21,12 @@ class App extends React.Component {
     // not the same as input refs, more as a ref to data within a database.
     // reference App Comopnent's props from react router
     const { params } = this.props.match;
+    // first reinstate our local Storage
+    // parse returns string to object
+    const localStorageRef = localStorage.getItem(params.storedId);
+    if(localStorageRef) {
+      this.setState({ order: JSON.parse(localStorageRef) });
+    }
     // reference to the store name and fishes state
     this.ref = base.syncState(`${params.storedId}/fishes`, {
       context: this,
@@ -28,12 +34,22 @@ class App extends React.Component {
     });
   }
 
-  //lifecycle method
+  // lifecycle method
+  // method for handling updates to component
+  componentDidUpdate() {
+    console.log(this.state.order);
+    // with localstorage api need value needs to be a string
+    localStorage.setItem(this.props.match.params.storedId, JSON.stringify(this.state.order));
+    console.log('Component Did Update')
+  }
+
+  // lifecycle method
   componentWillUnmount() {
     // why we store ref so we can remove it
     // it will un mount the app component and clean up any memory leak issues.
     base.removeBinding(this.ref);
   }
+
 
   // need to create secondary method to add fish to state
   addFish = fish => {
