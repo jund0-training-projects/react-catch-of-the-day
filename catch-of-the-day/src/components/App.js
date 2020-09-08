@@ -80,6 +80,18 @@ class App extends React.Component {
     });
   }
 
+  deleteFish = (key) => {
+    // 1. take a copy of the current state
+    const fishes = { ...this.state.fishes };
+    // 2. delete fish
+    fishes[key] = null;
+    // 3. set that to state
+    this.setState({
+      fishes : fishes
+    });
+
+  };
+
   loadSampleFishes = () => {
     this.setState({fishes: sampleFishes});
   };
@@ -89,6 +101,20 @@ class App extends React.Component {
     const order = { ...this.state.order }
     // 2. either add to order, or update the number in our order
     order[key] = order[key] + 1 || 1;
+    // 3. Call setState to update our state object
+    this.setState({
+      order: order
+    });
+  };
+
+  removeFromOrder = (key) => {
+    // 1. take a copy of state
+    const order = { ...this.state.order }
+    // 2. delete order
+    // order[key] = null;
+    // using delete because not mirroring to firebease
+    delete order[key];
+    // reinstate back into state
     // 3. Call setState to update our state object
     this.setState({
       order: order
@@ -116,9 +142,11 @@ class App extends React.Component {
         {/*<Order { ...this.state } />*/}
         <Order fishes={this.state.fishes}
                order={this.state.order}
+               removeFromOrder={this.removeFromOrder}
         />
         <Inventory addFish={this.addFish}
                    updateFish={this.updateFish}
+                   deleteFish={this.deleteFish}
                    loadSampleFishes={this.loadSampleFishes}
                    fishes={this.state.fishes}
         />
