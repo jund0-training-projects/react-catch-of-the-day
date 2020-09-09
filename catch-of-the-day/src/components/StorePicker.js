@@ -1,9 +1,14 @@
 // always import into your component, don't worry it won't reproduce multiple copies
 import React from 'react';
 import { getFunName } from "../helpers";
+import PropTypes from "prop-types";
 
 // each component is going to be its own class
 class StorePicker extends React.Component {
+
+  static propTypes = {
+    history: PropTypes.object,
+  };
 
   // constructor() {
   //   // supper will instantiate React.Component

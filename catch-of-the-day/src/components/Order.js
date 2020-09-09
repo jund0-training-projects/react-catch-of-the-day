@@ -2,8 +2,16 @@ import React from 'react';
 import { formatPrice } from "../helpers";
 // introducing animations
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import PropTypes from "prop-types";
 
 class Order extends React.Component {
+
+  static propTypes = {
+    fishes: PropTypes.object,
+    order: PropTypes.object,
+    removeFromOrder: PropTypes.func,
+  };
+
   // as render function becomes to complicated its best practce
   // to create render functions to make the render function more readible.
   renderOrder = key => {

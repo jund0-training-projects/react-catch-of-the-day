@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 /*
 * example of stateless functional component
 * since the class only has a render function, it's a stateless functional compoennt
@@ -20,6 +21,10 @@ const Header = (props) => (
     </h3>
   </header>
 );
+
+Header.propTypes = {
+  tagline: PropTypes.string.isRequired
+};
 
 // class Header extends React.Component {
 //   render() {
