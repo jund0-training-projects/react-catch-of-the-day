@@ -1,4 +1,8 @@
 // These are your firebase security rules - put them in the "Security & Rules" tab of your database
+// writing checks if the data exists
+// rules is the top level of the entire database
+// one level in, $room is wild card matcher that is second level deep, it could room or store
+// second level
 {
   "rules": {
     // won't let people delete an existing room

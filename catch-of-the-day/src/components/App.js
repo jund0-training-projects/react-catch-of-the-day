@@ -27,12 +27,12 @@ class App extends React.Component {
     const { params } = this.props.match;
     // first reinstate our local Storage
     // parse returns string to object
-    const localStorageRef = localStorage.getItem(params.storedId);
+    const localStorageRef = localStorage.getItem(params.storeId);
     if(localStorageRef) {
       this.setState({ order: JSON.parse(localStorageRef) });
     }
     // reference to the store name and fishes state
-    this.ref = base.syncState(`${params.storedId}/fishes`, {
+    this.ref = base.syncState(`${params.storeId}/fishes`, {
       context: this,
       state: 'fishes'
     });
@@ -43,7 +43,7 @@ class App extends React.Component {
   componentDidUpdate() {
     console.log(this.state.order);
     // with localstorage api need value needs to be a string
-    localStorage.setItem(this.props.match.params.storedId, JSON.stringify(this.state.order));
+    localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order));
     // console.log('Component Did Update')
   }
 
@@ -154,6 +154,7 @@ class App extends React.Component {
                    deleteFish={this.deleteFish}
                    loadSampleFishes={this.loadSampleFishes}
                    fishes={this.state.fishes}
+                   storeId={this.props.match.params.storeId}
         />
       </div>
     )
